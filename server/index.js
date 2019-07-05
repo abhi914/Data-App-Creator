@@ -19,7 +19,7 @@ app.use((req, res, next) => {
 
 //Used to fetch the data from the table
 
-app.get('/get-data', (req, res) => {
+app.get('/appdata', (req, res) => {
     connection.query("SELECT * FROM App_Menu", (error, results, fields) => {
         res.send(results);
     });    
@@ -27,7 +27,7 @@ app.get('/get-data', (req, res) => {
 
 //Used to delete row in the table
 
-app.delete('/delete-item', (req, res) => {
+app.delete('/appdata', (req, res) => {
     connection.query("DELETE FROM App_Menu WHERE id ="+ req.body.id, (error, results, fields) => {        
         res.send(results);
     });
@@ -35,7 +35,7 @@ app.delete('/delete-item', (req, res) => {
 
 //Used to edit row in the table
 
-app.put('/edit-item', (req, res) => {   
+app.put('/appdata', (req, res) => {   
     connection.query(`UPDATE App_Menu SET name = "${req.body.data.item.name}", description ="
         ${ req.body.data.item.description }", url = "${req.body.data.item.url}", icon_url= "${req.body.data.item.icon_url}", parent_id = 
         ${req.body.data.item.parent_id}, status = ${req.body.data.item.status} WHERE id = ${req.body.data.item.id}`,
@@ -46,7 +46,7 @@ app.put('/edit-item', (req, res) => {
 
 //Used to add new row to the Table
 
-app.post('/add-item', (req, res) => {       
+app.post('/appdata', (req, res) => {       
     connection.query(`INSERT INTO App_Menu (name, description, url, icon_url, parent_id, status) VALUES('${req.body.data.item.name}',
     '${ req.body.data.item.description }', '${req.body.data.item.url}', '${req.body.data.item.icon_url}',
     ${parseInt(req.body.data.item.parent_id)}, ${req.body.data.item.status})`, 

@@ -20,24 +20,23 @@
           <v-container grid-list-md>
             <v-layout wrap>              
               <v-flex xs12 sm6 md4>
-              <v-text-field v-model="editedItem.name" label="name"></v-text-field>
-              </v-flex>
-              
+              <v-text-field v-model="editedItem.name" label="name" required ></v-text-field>
+              </v-flex>              
               <v-flex md6>
-                <v-select v-model="editedItem.status" :items="items" :error-messages="errors.collect('status')" label="Status"
-                     required></v-select>
+                <v-select v-model="editedItem.status" :items="items" :error-messages="errors.collect('status')" label="Status" 
+                  required></v-select>
               </v-flex>
               <v-flex xs12 sm6 md4>
-                <v-text-field v-model="editedItem.url" label="Url "></v-text-field>
+                <v-text-field v-model="editedItem.url" required label="Url"></v-text-field>
               </v-flex>
               <v-flex xs12 sm6 md4>
-                <v-text-field v-model="editedItem.icon_url" label="Icon Url"></v-text-field>
+                <v-text-field v-model="editedItem.icon_url" required label="Icon Url"></v-text-field>
               </v-flex>
               <v-flex xs12 sm6 md4>
-                <v-text-field v-model="editedItem.parent_id" label="Parent Id"></v-text-field>
+                <v-text-field v-model="editedItem.parent_id" required label="Parent Id"></v-text-field>
               </v-flex>                
               <v-flex xs12 sm12 md12 >
-                <v-text-field v-model="editedItem.description" label="Description"></v-text-field>
+                <v-text-field v-model="editedItem.description" required label="Description"></v-text-field>
               </v-flex>
             </v-layout>
           </v-container>
@@ -135,7 +134,7 @@ export default {
   methods: {
     // Used to fetch the data
     initialize () {
-      axios.get("http://localhost:3000/get-data").
+      axios.get("http://localhost:3000/appdata").
         then((response) => {
           this.appData = response.data    
           // console.log("initialized")      
@@ -152,7 +151,7 @@ export default {
     deleteItem (item) {
       const id = item.id
       confirm('Are you sure you want to delete this item?') && 
-      axios.delete("http://localhost:3000/delete-item", {
+      axios.delete("http://localhost:3000/appdata", {
         data: {
           id
         }
@@ -175,7 +174,7 @@ export default {
     // POST & PUT Call are distinguished based on the editedIndex here
     save () {
       if (this.editedIndex > -1) {
-        axios.put("http://localhost:3000/edit-item", {
+        axios.put("http://localhost:3000/appdata", {
           data: {
             item: this.editedItem
           }
@@ -187,7 +186,7 @@ export default {
         })
       } 
       else {
-        axios.post("http://localhost:3000/add-item", {
+        axios.post("http://localhost:3000/appdata", {
           data: {
             item: this.editedItem
           }
